@@ -1,0 +1,121 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "upload",
+      "version": "0.0.1",
+      "description": "webpack upload plugin",
+      "main": "index.js",
+      "scripts": {
+        "lint": "eslint --cache \"src/**/*.{js,ts}\" --fix",
+        "prepare": "husky install",
+        "husky-hook:add": "husky add ./husky/pre-commit ./node_modules/.bin/lint-staged"
+      },
+      "keywords": [
+        "webpack upload plugin",
+        "webpack plugin"
+      ],
+      "config": {
+        "commitizen": {
+          "path": "./node_modules/cz-conventional-changelog"
+        }
+      },
+      "lint-staged": {
+        "*.{js,ts}": [
+          "pnpm run lint",
+          "git add"
+        ]
+      },
+      "engines": {
+        "node": ">= 12.0.0",
+        "pnpm": ">=7"
+      },
+      "author": "siqing",
+      "license": "MIT"
+    },
+    "prefix": "/Users/lm/code/webpack/upload"
+  },
+  "2 debug pnpm:context": {
+    "currentLockfileExists": false,
+    "storeDir": "/Users/lm/Library/pnpm/store/v3",
+    "virtualStoreDir": "/Users/lm/code/webpack/upload/node_modules/.pnpm"
+  },
+  "3 debug pnpm:stage": {
+    "prefix": "/Users/lm/code/webpack/upload",
+    "stage": "resolution_started"
+  },
+  "4 debug pnpm:package-manifest": {
+    "prefix": "/Users/lm/code/webpack/upload",
+    "updated": {
+      "name": "upload",
+      "version": "0.0.1",
+      "description": "webpack upload plugin",
+      "main": "index.js",
+      "scripts": {
+        "lint": "eslint --cache \"src/**/*.{js,ts}\" --fix",
+        "prepare": "husky install",
+        "husky-hook:add": "husky add ./husky/pre-commit ./node_modules/.bin/lint-staged"
+      },
+      "keywords": [
+        "webpack upload plugin",
+        "webpack plugin"
+      ],
+      "config": {
+        "commitizen": {
+          "path": "./node_modules/cz-conventional-changelog"
+        }
+      },
+      "lint-staged": {
+        "*.{js,ts}": [
+          "pnpm run lint",
+          "git add"
+        ]
+      },
+      "engines": {
+        "node": ">= 12.0.0",
+        "pnpm": ">=7"
+      },
+      "author": "siqing",
+      "license": "MIT"
+    }
+  },
+  "5 debug pnpm:stage": {
+    "prefix": "/Users/lm/code/webpack/upload",
+    "stage": "resolution_done"
+  },
+  "6 debug pnpm:stats": {
+    "prefix": "/Users/lm/code/webpack/upload",
+    "removed": 0
+  },
+  "7 debug pnpm:stage": {
+    "prefix": "/Users/lm/code/webpack/upload",
+    "stage": "importing_started"
+  },
+  "8 debug pnpm:stats": {
+    "added": 0,
+    "prefix": "/Users/lm/code/webpack/upload"
+  },
+  "9 debug pnpm:stage": {
+    "prefix": "/Users/lm/code/webpack/upload",
+    "stage": "importing_done"
+  },
+  "10 error pnpm": {
+    "code": "ELIFECYCLE",
+    "errno": "ENOENT",
+    "syscall": "spawn",
+    "file": "sh",
+    "pkgid": "upload@0.0.1",
+    "stage": "prepare",
+    "script": "husky install",
+    "pkgname": "upload",
+    "err": {
+      "name": "pnpm",
+      "message": "upload@0.0.1 prepare: `husky install`\nspawn ENOENT",
+      "code": "ELIFECYCLE",
+      "stack": "pnpm: upload@0.0.1 prepare: `husky install`\nspawn ENOENT\n    at ChildProcess.<anonymous> (/Users/lm/.nvm/versions/node/v16.13.0/pnpm-global/5/node_modules/.pnpm/pnpm@7.2.1/node_modules/pnpm/dist/pnpm.cjs:93917:22)\n    at ChildProcess.emit (node:events:390:28)\n    at maybeClose (node:internal/child_process:1064:16)\n    at Process.ChildProcess._handle.onexit (node:internal/child_process:301:5)"
+    }
+  },
+  "11 warn pnpm:global": " Local package.json exists, but node_modules missing, did you mean to install?"
+}

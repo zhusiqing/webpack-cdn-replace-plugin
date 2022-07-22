@@ -1,0 +1,14 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 error pnpm": {
+    "code": "ERR_PNPM_REGISTRIES_MISMATCH",
+    "err": {
+      "name": "pnpm",
+      "message": "This modules directory was created using the following registries configuration: {\"default\":\"https://registry.npmmirror.com/\"}. The current configuration is {\"default\":\"http://registry.npm.qiwoo.org/\"}. To recreate the modules directory using the new settings, run \"pnpm install\".",
+      "code": "ERR_PNPM_REGISTRIES_MISMATCH",
+      "stack": "pnpm: This modules directory was created using the following registries configuration: {\"default\":\"https://registry.npmmirror.com/\"}. The current configuration is {\"default\":\"http://registry.npm.qiwoo.org/\"}. To recreate the modules directory using the new settings, run \"pnpm install\".\n    at validateModules (/Users/lm/Library/pnpm/global/5/.pnpm/pnpm@7.5.0/node_modules/pnpm/dist/pnpm.cjs:94983:15)\n    at async getContext (/Users/lm/Library/pnpm/global/5/.pnpm/pnpm@7.5.0/node_modules/pnpm/dist/pnpm.cjs:94851:28)\n    at async mutateModules (/Users/lm/Library/pnpm/global/5/.pnpm/pnpm@7.5.0/node_modules/pnpm/dist/pnpm.cjs:126032:19)\n    at async handler (/Users/lm/Library/pnpm/global/5/.pnpm/pnpm@7.5.0/node_modules/pnpm/dist/pnpm.cjs:127679:35)\n    at async /Users/lm/Library/pnpm/global/5/.pnpm/pnpm@7.5.0/node_modules/pnpm/dist/pnpm.cjs:192593:21\n    at async run (/Users/lm/Library/pnpm/global/5/.pnpm/pnpm@7.5.0/node_modules/pnpm/dist/pnpm.cjs:192567:34)\n    at async runPnpm (/Users/lm/Library/pnpm/global/5/.pnpm/pnpm@7.5.0/node_modules/pnpm/dist/pnpm.cjs:192785:5)\n    at async /Users/lm/Library/pnpm/global/5/.pnpm/pnpm@7.5.0/node_modules/pnpm/dist/pnpm.cjs:192777:7"
+    }
+  }
+}
