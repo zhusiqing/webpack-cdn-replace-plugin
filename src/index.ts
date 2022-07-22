@@ -12,10 +12,11 @@ export interface InterfaceTypes {
   js: TypeArr
   html: TypeArr
 }
+export type InterfaceUploadFn = (path: string, fileName: string) => string|Promise<string>
 export interface InterfaceOptions {
   cache: boolean
   types: InterfaceTypes,
-  uploadFn: (path: string, fileName: string) => string|Promise<string>
+  uploadFn: InterfaceUploadFn
 }
 
 interface InterfaceNoCache {
