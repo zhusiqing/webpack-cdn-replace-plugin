@@ -14,7 +14,9 @@
     "lib": ["esnext", "dom"],
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "declaration": true,
+    "declarationDir": "lib",
   },
   "include": ["src/**/*.ts", "src/*.d.ts"]
 }
