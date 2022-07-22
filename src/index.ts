@@ -15,7 +15,7 @@ export interface InterfaceTypes {
 export interface InterfaceOptions {
   cache: boolean
   types: InterfaceTypes,
-  uploadFn: (path: string, fileName: string) => string
+  uploadFn: (path: string, fileName: string) => string|Promise<string>
 }
 
 interface InterfaceNoCache {
@@ -37,9 +37,9 @@ export class UploadPlugin {
     }
     this.options = {
       cache: true,
-      types,
       uploadFn: (path, fileName) => fileName,
-      ...options
+      ...options,
+      types: { ...types, ...options.types },
     }
     this.cache = this.options.cache ? new Cache() : {
       cacheCDN: {},

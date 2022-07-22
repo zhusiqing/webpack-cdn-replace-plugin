@@ -1,7 +1,7 @@
 {
   "name": "webpack-cdn-replace-plugin",
   "version": "0.1.0",
-  "description": "webpack upload plugin",
+  "description": "webpack upload and cdn address replace plugin",
   "main": "lib/index.js",
   "scripts": {
     "test": "webpack --config example/webpack.config.js",
