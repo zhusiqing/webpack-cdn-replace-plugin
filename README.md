@@ -6,11 +6,11 @@ webpack插件，用于解决项目文件上传cdn后需要手动替换地址的�
 
 ```bash
 # npm
-npm i webpack-cdn-replace-plugin
+npm i -D webpack-cdn-replace-plugin
 # yarn
-yarn add webpack-cdn-replace-plugin
+yarn add -D webpack-cdn-replace-plugin
 # pnpm
-pnpm add webpack-cdn-replace-plugin
+pnpm add -D webpack-cdn-replace-plugin
 ```
 
 ## 用法
