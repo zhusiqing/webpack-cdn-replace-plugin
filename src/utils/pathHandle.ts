@@ -6,7 +6,6 @@ import { regExpCssStaticPath } from './regExp'
 
 export const publicPathHandle = (publicPath: string) => (content: string) => {
   const DEFAULT_SEP = '/'
-  // match strictly
   const escapedSeparator = `\\${DEFAULT_SEP}`
   let regStr = publicPath
     .split(DEFAULT_SEP)
@@ -23,7 +22,7 @@ export const publicPathHandle = (publicPath: string) => (content: string) => {
       return part
     })
     .join(escapedSeparator)
-  // absolute publicPath
+  // publicPath是绝对路径
   if (publicPath.startsWith(DEFAULT_SEP)) {
     let prefix = ''
     const publicPathArray = publicPath.split('')
@@ -37,8 +36,7 @@ export const publicPathHandle = (publicPath: string) => (content: string) => {
     }
     regStr = `${prefix}${regStr}`
   }
-  // avoid matching url in form of `//path/to/resource`
-  // aka url which drop the protocol part
+
   if (publicPath.endsWith(DEFAULT_SEP)) {
     regStr += '([^/])'
   }
@@ -49,7 +47,6 @@ export const publicPathHandle = (publicPath: string) => (content: string) => {
     if (prefix) {
       result = `${prefix}${result}`
     }
-    // suffix possibly is offset , assertion type
     if (suffix && typeof suffix !== 'number') {
       result += suffix
     }
@@ -78,7 +75,8 @@ export const cdnReplaceContentHandle = (publicPath: string) => (arr: string[], f
             if (matchArr.length) {
               const find = matchArr.find(el => el.indexOf(filename) !== -1)
               if (find) {
-                newContent = newContent.replace(find, cdnPath)
+                const reg = new RegExp(find, 'g')
+                newContent = newContent.replace(reg, cdnPath)
               }
 
             } else {

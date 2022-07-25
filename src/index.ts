@@ -64,8 +64,10 @@ export class UploadPlugin {
 
       const { output } = compiler.options
       const { path, publicPath } = output
+
       if (publicPath) {
-        log('warn', `publicPath must be emtpy, now is ${publicPath}`)
+        log('error', `publicPath must be emtpy, now is ${publicPath}`)
+        return
       }
       const {
         img: imgTypes,
@@ -91,6 +93,7 @@ export class UploadPlugin {
         } else if (jsTypes.includes(ext)) {
           jsArr.push(filePath)
           jsFilenameObj[filename] = filePath
+          // 这里采用缓存是因为vue-cli在兼容浏览器时，会进行二次打包
           if (isCache) {
             (<Cache>this.cache).addFile(filePath, filename)
           } else {
@@ -104,7 +107,7 @@ export class UploadPlugin {
       await this.uploadAndCacheHandle({ ...imgFilenameObj, ...fontFilenameObj })
       spinner.text = 'upload img and font is completed'
       spinner.succeed()
-      const spinnerCss = ora('uploading css').start()
+      const spinnerCss = ora('update css').start()
       // 在css文件中上传图片和字体替换
       const replaceContentHandle = cdnReplaceContentHandle(publicPath as string)
       try {
@@ -112,16 +115,20 @@ export class UploadPlugin {
       } catch (error) {
         console.error(error);
       }
+      spinnerCss.text = 'uploading css'
       await this.uploadAndCacheHandle({ ...cssFilenameObj })
       spinnerCss.text = 'upload css is completed'
       spinnerCss.succeed()
 
-      const spinnerJs = ora('uploading js').start()
+      const spinnerJs = ora('update js').start()
       // 在js文件中上传图片和字体替换
       replaceContentHandle(jsArr, { ...imgFilenameObj, ...fontFilenameObj, ...cssFilenameObj }, { ...this.cache.cacheCDN})
+      spinnerJs.text = 'uploading js'
       await this.uploadAndCacheHandle({ ...jsFilenameObj })
       spinnerJs.text = 'upload js is completed'
       spinnerJs.succeed()
+
+      const spinnerHtml = ora('update HTML').start()
       // 更新html中地址
       const cacheFile: { [key: string]: string } = {}
       Object.entries(this.cache.cacheFile).forEach(([key, value]) => {
@@ -131,8 +138,10 @@ export class UploadPlugin {
           cacheFile[value] = key
         }
       })
-
       replaceContentHandle(htmlArr, { ...cssFilenameObj, ...cacheFile }, { ...this.cache.cacheCDN })
+      spinnerHtml.text = 'update HTML is completed'
+      spinnerHtml.succeed()
+
       // 缓存持久化
       isCache && (<Cache>this.cache).persistence()
       // callback()
