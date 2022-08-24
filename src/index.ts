@@ -1,5 +1,5 @@
 import type { Compiler, Stats } from 'webpack'
-import { join, extname } from 'path'
+import { join, extname, relative } from 'path'
 import { Cache, log, cdnReplaceContentHandle } from './utils'
 import type { InterfaceCDNCache } from './utils';
 import ora from 'ora';
@@ -61,12 +61,10 @@ export class UploadPlugin {
       const fontFilenameObj: InterfaceCDNCache<string> = {}
       const cssFilenameObj: InterfaceCDNCache<string> = {}
       const jsFilenameObj: InterfaceCDNCache<string> = {}
-
       const { output } = compiler.options
       const { path, publicPath } = output
-
-      if (publicPath) {
-        log('error', `publicPath must be emtpy, now is ${publicPath}`)
+      if (publicPath !== '/') {
+        log('error', `publicPath must be /, now is ${publicPath}`)
         return
       }
       const {
@@ -145,6 +143,19 @@ export class UploadPlugin {
       // 缓存持久化
       isCache && (<Cache>this.cache).persistence()
       // callback()
+    })
+    compiler.hooks.compilation.tap('test', (compilation) => {
+      compilation.mainTemplate.hooks.requireExtensions.tap('test', (source, chunk, hash) => {
+        const chunkMap = chunk.getChunkMaps(true)
+        if (Object.keys(chunkMap.hash).length) {
+          const buff = [source]
+          buff.push('\n\n// rewrite __webpack_public_path__');
+          buff.push(`__webpack_require__.p = "";`);
+          return buff.join('\n') || ''
+        } else {
+          return source
+        }
+      })
     })
   }
   async uploadAndCacheHandle(obj: { [key: string] : string }) {

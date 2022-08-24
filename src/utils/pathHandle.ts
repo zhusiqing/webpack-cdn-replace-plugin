@@ -55,12 +55,10 @@ export const publicPathHandle = (publicPath: string) => (content: string) => {
 }
 
 export const cdnReplaceContentHandle = (publicPath: string) => (arr: string[], fileNameObj: InterfaceCDNCache<string>, cdnArr: InterfaceCDNCache<string>) => {
-  const removePublicPath = publicPathHandle(publicPath)
   const prefix = publicPath || ''
   for (const v of arr) {
-    const content = removePublicPath(read(v))
     const fileType = extname(v)
-    let newContent = content
+    let newContent = read(v)
     let matchArr: string[] = []
     if (fileType === '.css') {
       matchArr = newContent.match(regExpCssStaticPath) || []
@@ -79,9 +77,12 @@ export const cdnReplaceContentHandle = (publicPath: string) => (arr: string[], f
                 newContent = newContent.replace(reg, cdnPath)
               }
 
-            } else {
+            } else if (fileType === '.html') {
               const replaceStr = join(prefix, filename)
               const reg = new RegExp(replaceStr, 'g')
+              newContent = newContent.replace(reg, cdnPath);
+            } else {
+              const reg = new RegExp(filename, 'g')
               newContent = newContent.replace(reg, cdnPath);
             }
           } else {
