@@ -150,7 +150,7 @@ export class UploadPlugin {
         if (Object.keys(chunkMap.hash).length) {
           const buff = [source]
           buff.push('\n\n// rewrite __webpack_public_path__');
-          buff.push(`__webpack_require__.p = "";`);
+          buff.push(`__webpack_require__.p = "/";`);
           return buff.join('\n') || ''
         } else {
           return source

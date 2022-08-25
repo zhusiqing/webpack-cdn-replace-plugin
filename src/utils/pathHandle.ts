@@ -2,7 +2,7 @@ import { join, extname } from 'path';
 import { read, write } from './io'
 import { InterfaceCDNCache } from './cache';
 import { log } from './console';
-import { regExpCssStaticPath } from './regExp'
+import { regExpCssStaticPath, regExpJsStaticPath } from './regExp'
 
 export const publicPathHandle = (publicPath: string) => (content: string) => {
   const DEFAULT_SEP = '/'
@@ -70,7 +70,7 @@ export const cdnReplaceContentHandle = (publicPath: string) => (arr: string[], f
         try {
           if (/^http:\/\/|https:\/\//.test(cdnPath)) {
             // 当publicPath为空时，css文件会采用相对路径，这里用于替换
-            if (matchArr.length) {
+            if (fileType === '.css' && matchArr.length) {
               const find = matchArr.find(el => el.indexOf(filename) !== -1)
               if (find) {
                 const reg = new RegExp(find, 'g')
@@ -81,6 +81,9 @@ export const cdnReplaceContentHandle = (publicPath: string) => (arr: string[], f
               const replaceStr = join(prefix, filename)
               const reg = new RegExp(replaceStr, 'g')
               newContent = newContent.replace(reg, cdnPath);
+            } else if (fileType === '.js') {
+              const reg = regExpJsStaticPath(filename)
+              newContent = newContent.replace(reg, `="${cdnPath}"`)
             } else {
               const reg = new RegExp(filename, 'g')
               newContent = newContent.replace(reg, cdnPath);

@@ -1,6 +1,6 @@
 {
   "name": "webpack-cdn-replace-plugin",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "webpack upload and cdn address replace plugin",
   "main": "lib/index.js",
   "homepage": "https://github.com/zhusiqing/webpack-cdn-replace-plugin",
